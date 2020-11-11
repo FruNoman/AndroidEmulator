@@ -1,9 +1,11 @@
 package com.github.frunoman.enums;
 
+import com.google.common.io.Resources;
+
 public enum Emulators {
     PIXEL_4_26_API(
             "PIXEL_4_26_API",
-            "/home/dmytroafrolov/IdeaProjects/AndroidEmulator/src/main/resources/pixel4_26_api.properties"
+            Resources.getResource("pixel4_26_api.properties").getPath()
     );
     private String properPath;
     private String emulatorName;
