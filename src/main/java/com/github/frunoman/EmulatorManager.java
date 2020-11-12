@@ -9,7 +9,9 @@ import com.android.sdklib.repository.targets.SystemImageManager;
 import com.android.utils.ILogger;
 import com.github.frunoman.enums.Emulators;
 import com.github.frunoman.helper.ProgressIndicatorImpl;
+import com.github.frunoman.helper.Utils;
 import com.github.frunoman.helper.iLoggerImpl;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,11 +26,13 @@ public class EmulatorManager {
     private AvdManager avdManager;
     private ProgressIndicator progressIndicator = new ProgressIndicatorImpl();
     private ILogger iLogger = new iLoggerImpl();
+    private static final Logger logger = Logger.getLogger(EmulatorManager.class);
 
     public EmulatorManager(String ANDROID_HOME) {
+        logger.debug("Create emulator manager with ANDROID_HOME ["+ANDROID_HOME+"]");
         try {
             this.ANDROID_HOME = ANDROID_HOME;
-            this.EMULATOR = ANDROID_HOME + File.separator + "tools" + File.separator + "emulator";
+            this.EMULATOR = ANDROID_HOME + File.separator + "emulator" + File.separator + "emulator";
             this.sdkHandler = AndroidSdkHandler.getInstance(new File(ANDROID_HOME));
             this.systemImageManager = sdkHandler.getSystemImageManager(progressIndicator);
             this.avdManager = AvdManager.getInstance(sdkHandler, iLogger);
@@ -42,6 +46,7 @@ public class EmulatorManager {
     }
 
     public Emulator createEmulator(String name, Properties properties) {
+        logger.debug("Create emulator with name ["+name+"] and properties ["+properties.toString()+"]");
         try {
             Map<String, String> bootConfig = new HashMap<>();
             Map<String, String> hardwareProperties = new HashMap<>();
