@@ -2,30 +2,32 @@ package com.github.frunoman.enums;
 
 import com.google.common.io.Resources;
 
+import java.io.InputStream;
+
 public enum Emulators {
     PIXEL_4_26_API(
             "PIXEL_4_26_API",
-            Resources.getResource("pixel4_26_api.properties").getPath()
+            Thread.currentThread().getContextClassLoader().getResourceAsStream("pixel4_26_api.properties")
     ),
     NEXUS_10_30_API(
             "NEXUS_10_30_API",
-            Resources.getResource("nexus10_30_api.properties").getPath()
+            Thread.currentThread().getContextClassLoader().getResourceAsStream("nexus10_30_api.properties")
     ),
 
     NEXUS_9_26_API(
             "NEXUS_9_26_API",
-            Resources.getResource("nexus9_26_api.properties").getPath()
+            Thread.currentThread().getContextClassLoader().getResourceAsStream("nexus9_26_api.properties")
     );
-    private String properPath;
+    private InputStream streamProps;
     private String emulatorName;
 
-    Emulators(String emulatorName, String properPath) {
-        this.properPath = properPath;
+    Emulators(String emulatorName, InputStream streamProps) {
+        this.streamProps = streamProps;
         this.emulatorName = emulatorName;
     }
 
-    public String getPath() {
-        return properPath;
+    public InputStream getStreamProps() {
+        return streamProps;
     }
 
     public String getName() {

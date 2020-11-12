@@ -83,7 +83,7 @@ public class EmulatorManager {
     public Emulator createEmulator(String name, Emulators emulator) {
         Properties properties = new Properties();
         try {
-            properties.load(new FileInputStream(new File(emulator.getPath())));
+            properties.load(emulator.getStreamProps());
             properties.setProperty("avd.ini.displayname", name);
             String skinPath = properties.getProperty("skin.path");
             properties.setProperty("skin.path", String.format(skinPath, ANDROID_HOME));
