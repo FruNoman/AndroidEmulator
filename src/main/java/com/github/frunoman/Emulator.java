@@ -30,9 +30,10 @@ public class Emulator {
         try {
             this.port = Utils.getFreePortInRange(5554, 5654);
             process = Runtime.getRuntime().exec(new String[]{EMULATOR, "-avd", avdInfo.getName(), "-port", String.valueOf(port)});
+            Thread.sleep(2000);
             this.serial = "emulator-" + port;
             logger.debug("Run emulator ["+avdInfo.getName()+"] with serial ["+serial+"]");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return avdInfo;
